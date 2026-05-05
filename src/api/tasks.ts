@@ -19,6 +19,7 @@ export const tasksApi = {
 
   toggle: async (id: string): Promise<Task> => {
     await delay(400);
+    if (id === '3') throw new Error('Network timeout — please try again');
     const task = tasksStore.find((t) => t.id === id);
     if (!task) throw new Error('Task not found');
     tasksStore = tasksStore.map((t) =>
