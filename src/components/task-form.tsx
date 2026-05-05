@@ -29,15 +29,28 @@ export function TaskForm({ onClose }: TaskFormProps) {
           )}
         </form.Field>
         <View className="flex-row gap-3">
-          <TouchableOpacity
-            className="flex-1 bg-blue-500 py-2 rounded-lg items-center"
-            onPress={form.handleSubmit}
+          <form.Subscribe
+            selector={(state) => ({
+              canSubmit: state.canSubmit,
+              isSubmitting: state.isSubmitting,
+            })}
           >
-            <Text className="text-white font-medium">Save</Text>
-          </TouchableOpacity>
+            {({ canSubmit, isSubmitting }) => (
+              <TouchableOpacity
+                className={`flex-1 py-2 rounded-lg items-center ${canSubmit ? 'bg-blue-500' : 'bg-blue-300'}`}
+                onPress={form.handleSubmit}
+                disabled={!canSubmit || isSubmitting}
+              >
+                <Text className="text-white font-medium">
+                  {isSubmitting ? 'Saving...' : 'Save'}
+                </Text>
+              </TouchableOpacity>
+            )}
+          </form.Subscribe>
           <TouchableOpacity
             className="flex-1 bg-gray-100 py-2 rounded-lg items-center"
             onPress={onClose}
+            disabled={createTask.isPending}
           >
             <Text className="text-gray-700 font-medium">Cancel</Text>
           </TouchableOpacity>
