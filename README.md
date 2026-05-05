@@ -36,7 +36,11 @@ src/
 
 ## The Challenge
 
-This is a Task Management app with **deliberate bugs** and missing features. Your job: fix, improve, and extend it.
+This app has **deliberate bugs** and missing features. Diagnose the root cause of each issue, fix it, then add the features below.
+
+### Part 1 — Fix the Bugs
+
+These issues are visible when you run the app:
 
 1. Tapping a task to toggle between pending and completed doesn't visually update the list — it stays the same even though the API call succeeds.
 2. If the toggle API call fails for any reason, nothing happens — no error message appears.
@@ -51,7 +55,7 @@ This is a Task Management app with **deliberate bugs** and missing features. You
 
 ### Part 3 — Refactor
 
-1. Extract the task list screen into a custom hook (`use-tasks-screen.ts`)
+1. Extract the task list screen logic into a custom hook (`use-tasks-screen.ts`)
 2. Add proper loading skeletons instead of the spinner
 3. Ensure every file has strict TypeScript types
 
