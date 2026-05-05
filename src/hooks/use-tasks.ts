@@ -7,9 +7,6 @@ export const taskKeys = {
   all: ['tasks'] as const,
 };
 
-// ─── BUG #1: Inconsistent query key ──────────────────────
-// Hook uses ['task-list'] but mutation invalidates ['tasks'].
-// Toggling a task never refreshes the list.
 export function useTasksQuery() {
   return useQuery({
     queryKey: ['task-list'],
@@ -17,9 +14,6 @@ export function useTasksQuery() {
   });
 }
 
-// ─── BUG #2: No error handling ───────────────────────────
-// Toggle mutation only handles success.
-// If API throws, the error is silently swallowed.
 export function useToggleTask() {
   const queryClient = useQueryClient();
 

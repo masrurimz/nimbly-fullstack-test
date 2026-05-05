@@ -39,10 +39,6 @@ export default function TasksScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* BUG #3: keyExtractor uses only item.id — when a task's status
-         toggles and updatedAt changes, VirtualizedList may serve
-         the cached render since the key hasn't changed.
-         Should include updatedAt: `item => item.id + item.updatedAt` */}
       <FlatList
         data={filtered}
         keyExtractor={(item) => item.id}
