@@ -38,12 +38,10 @@ src/
 
 This is a Task Management app with **deliberate bugs** and missing features. Your job: fix, improve, and extend it.
 
-### Part 1 — Fix the Bugs
-
-1. **Query key mismatch** — tapping a task to toggle it doesn't refresh the list. Find the mismatch and fix it.
-2. **Missing error handling** — the toggle mutation silently fails when the API throws. Add proper error handling with user feedback.
-3. **Stale keyExtractor** — the FlatList key uses only `item.id`. When a task is toggled, `updatedAt` changes but the key stays the same, so VirtualizedList may render stale cached output. Include `updatedAt` in the key.
-4. **Form validation** — empty task titles can be submitted. Add validation with user feedback.
+1. Tapping a task to toggle between pending and completed doesn't visually update the list — it stays the same even though the API call succeeds.
+2. If the toggle API call fails for any reason, nothing happens — no error message appears.
+3. Sometimes when scrolling, tasks that have been toggled show their old status briefly before updating.
+4. Tapping Save with an empty title adds a blank task.
 
 ### Part 2 — Add Features
 
