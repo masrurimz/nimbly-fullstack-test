@@ -7,7 +7,7 @@ const now = new Date().toISOString();
 let tasksStore: Task[] = [
   { id: '1', title: 'Review PR', status: 'pending', createdAt: now, updatedAt: now },
   { id: '2', title: 'Write tests', status: 'completed', createdAt: now, updatedAt: now },
-  { id: '3', title: 'Build offline queue', status: 'pending', createdAt: now, updatedAt: now },
+  { id: '3', title: 'Build offline queue — broken', status: 'pending', createdAt: now, updatedAt: now },
   { id: '4', title: 'Fix navigation bug', status: 'pending', createdAt: now, updatedAt: now },
 ];
 
