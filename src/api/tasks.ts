@@ -2,11 +2,13 @@ import type { Task } from './types';
 
 const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
+const now = new Date().toISOString();
+
 let tasksStore: Task[] = [
-  { id: '1', title: 'Review PR', status: 'pending', createdAt: new Date().toISOString() },
-  { id: '2', title: 'Write tests', status: 'completed', createdAt: new Date().toISOString() },
-  { id: '3', title: 'Build offline queue', status: 'pending', createdAt: new Date().toISOString() },
-  { id: '4', title: 'Fix navigation bug', status: 'pending', createdAt: new Date().toISOString() },
+  { id: '1', title: 'Review PR', status: 'pending', createdAt: now, updatedAt: now },
+  { id: '2', title: 'Write tests', status: 'completed', createdAt: now, updatedAt: now },
+  { id: '3', title: 'Build offline queue', status: 'pending', createdAt: now, updatedAt: now },
+  { id: '4', title: 'Fix navigation bug', status: 'pending', createdAt: now, updatedAt: now },
 ];
 
 export const tasksApi = {
@@ -20,7 +22,9 @@ export const tasksApi = {
     const task = tasksStore.find((t) => t.id === id);
     if (!task) throw new Error('Task not found');
     tasksStore = tasksStore.map((t) =>
-      t.id === id ? { ...t, status: t.status === 'pending' ? 'completed' : 'pending' } : t
+      t.id === id
+        ? { ...t, status: t.status === 'pending' ? 'completed' : 'pending', updatedAt: new Date().toISOString() }
+        : t,
     );
     return tasksStore.find((t) => t.id === id)!;
   },
@@ -32,6 +36,7 @@ export const tasksApi = {
       title,
       status: 'pending',
       createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     };
     tasksStore.push(task);
     return task;

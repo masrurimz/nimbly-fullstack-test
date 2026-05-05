@@ -39,9 +39,13 @@ export default function TasksScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* BUG #3: FlatList has no keyExtractor — uses index as default key */}
+      {/* BUG #3: keyExtractor uses only item.id — when a task's status
+         toggles and updatedAt changes, VirtualizedList may serve
+         the cached render since the key hasn't changed.
+         Should include updatedAt: `item => item.id + item.updatedAt` */}
       <FlatList
         data={filtered}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => <TaskItem task={item} onToggle={(id) => toggleTask.mutate(id)} />}
         ListHeaderComponent={<FilterBar value={filter} onChange={setFilter} />}
         ListEmptyComponent={<Text className="text-gray-400 text-center mt-8">No tasks found</Text>}

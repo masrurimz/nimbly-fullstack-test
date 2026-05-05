@@ -42,7 +42,7 @@ This is a Task Management app with **deliberate bugs** and missing features. You
 
 1. **Query key mismatch** — tapping a task to toggle it doesn't refresh the list. Find the mismatch and fix it.
 2. **Missing error handling** — the toggle mutation silently fails when the API throws. Add proper error handling with user feedback.
-3. **Missing keyExtractor** — the FlatList logs a React warning and may cause rendering issues. Add `keyExtractor`.
+3. **Stale keyExtractor** — the FlatList key uses only `item.id`. When a task is toggled, `updatedAt` changes but the key stays the same, so VirtualizedList may render stale cached output. Include `updatedAt` in the key.
 4. **Form validation** — empty task titles can be submitted. Add validation with user feedback.
 
 ### Part 2 — Add Features
