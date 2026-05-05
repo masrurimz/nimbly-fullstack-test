@@ -11,62 +11,70 @@ npm install
 npx expo start
 ```
 
-Then open the app in Expo Go, iOS simulator, or Android emulator.
+Then open in Expo Go, iOS simulator, or Android emulator.
+
+> **Note:** If TypeScript shows `className` errors on first open, run `npx expo start` once to let Uniwind generate its type declarations, then restart your editor.
 
 ## Structure
 
 ```
-├── src/
-│   ├── app/
-│   │   ├── _layout.tsx    # Root layout (TanStack Query provider)
-│   │   └── index.tsx      # Task list screen — start here
-│   └── global.css          # Tailwind v4 + Uniwind entry
-├── app.json
-├── metro.config.js         # Uniwind configured
-├── package.json
-└── README.md
+src/
+├── api/
+│   ├── types.ts          # Shared types (Task, TaskFilter)
+│   └── tasks.ts          # Mock API layer
+├── hooks/
+│   └── use-tasks.ts      # TanStack Query hooks (queries + mutations)
+├── components/
+│   ├── task-item.tsx      # Single task row component
+│   ├── task-form.tsx      # Add task form (modal)
+│   └── filter-bar.tsx     # Status filter chips
+├── app/
+│   ├── _layout.tsx        # Root layout (QueryClientProvider)
+│   └── index.tsx          # Home screen — assembles everything
+└── global.css             # Tailwind v4 + Uniwind entry
 ```
 
 ## The Challenge
 
-This is a partially built **Task Management** app. It has deliberate bugs and missing features. Fix, improve, and extend it.
+This is a Task Management app with **deliberate bugs** and missing features. Your job: fix, improve, and extend it.
 
-### Part 1: Fix the Bugs
+### Part 1 — Fix the Bugs
 
-1. **FlatList keys** — items don't render with stable keys. Fix it.
-2. **Query key mismatch** — toggle tasks doesn't refresh the list. Find and fix the root cause.
-3. **Error handling** — the toggle mutation silently fails. Add error handling with user feedback.
-4. **Form validation** — empty task titles can be submitted. Add validation to prevent this.
+1. **Query key mismatch** — tapping a task to toggle it doesn't refresh the list. Find the mismatch and fix it.
+2. **Missing error handling** — the toggle mutation silently fails when the API throws. Add proper error handling with user feedback.
+3. **Missing keyExtractor** — the FlatList logs a React warning and may cause rendering issues. Add `keyExtractor`.
+4. **Form validation** — empty task titles can be submitted. Add validation with user feedback.
 
-### Part 2: Add Features
+### Part 2 — Add Features
 
-1. **Optimistic updates** — When toggling a task, the UI updates immediately. If the API fails, roll back to the previous state.
-2. **Offline queue** — Store failed mutations locally. Retry when connectivity returns. Show a sync status indicator.
-3. **Filter persistence** — Save the active filter and search term so they survive app restarts (use AsyncStorage).
+1. **Optimistic updates** — when toggling a task, the UI updates immediately. If the API fails, roll back to the previous state and show a message.
+2. **Offline queue** — store failed mutations locally and retry when connectivity returns. Show a sync indicator.
+3. **Filter persistence** — save the active filter and search term so they survive app restarts (use AsyncStorage).
 
-### Part 3: Refactor
+### Part 3 — Refactor
 
-1. Extract the task list logic into a custom hook (`useTasks`)
-2. Structure the code into separate components (TaskItem, TaskForm, FilterBar)
-3. Add proper TypeScript types — no `any` anywhere
+1. Extract the task list screen into a custom hook (`use-tasks-screen.ts`)
+2. Add proper loading skeletons instead of the spinner
+3. Ensure every file has strict TypeScript types
 
 ### Bonus (Optional)
 
-- Add pagination or infinite scroll
-- Add unit tests with Jest
-- Implement dark mode with Uniwind's dark mode support
+- Pagination or infinite scroll
+- Unit tests (Jest / React Native Testing Library)
+- Dark mode toggle using Uniwind's dark variant
+- Sentry integration with `captureException` on mutation errors
 
-## Evaluation Criteria
+## Evaluation
 
 | Criteria | What We Look For |
 |----------|-----------------|
-| **TanStack Query** | Proper query keys, caching, invalidation, optimistic updates |
-| **TanStack Form** | Validation, error handling, clean form state |
+| **TanStack Query** | Query keys, caching, invalidation, optimistic updates |
+| **TanStack Form** | Validation, error states, form state management |
 | **TypeScript** | Strict typing, no `any`, well-structured types |
-| **Code Quality** | Component composition, hooks extraction, readability |
-| **Error Handling** | Graceful degradation, user feedback, edge cases |
-| **Fullstack Thinking** | Offline considerations, data flow, API design awareness |
-| **AI Usage** | We allow AI but you must understand every line you commit |
+| **Code Quality** | Component composition, hooks, separation of concerns |
+| **Error Handling** | UX feedback, edge cases, offline resilience |
+| **Fullstack Thinking** | API design awareness, offline sync, data flow |
+| **AI Usage** | You may use AI tools — but you must understand every line |
 
 ## Submission
 
@@ -74,12 +82,4 @@ This is a partially built **Task Management** app. It has deliberate bugs and mi
 2. Complete the tasks above
 3. Push your changes
 4. Invite **masrurimz** as a collaborator to your private fork
-5. Reply to your interview thread with a link to your fork
-
-## Tips
-
-- Talk through your decisions — we want to understand your reasoning
-- Handle edge cases — empty states, loading, errors, offline
-- Don't over-engineer — clean, working code > over-abstracted
-- AI is allowed — use it as a tool, but own the output
-- If TypeScript shows `className` errors on first run, start Metro once (`npx expo start`) to generate Uniwind types, then they'll resolve
+5. Reply to your interview thread with a link
