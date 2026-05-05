@@ -23,7 +23,6 @@ export default function TasksScreen() {
     <View className="flex-1 bg-white pt-12 px-4">
       <Text className="text-2xl font-bold mb-4">Tasks</Text>
 
-      {/* Search + Add */}
       <View className="flex-row gap-2 mb-4">
         <TextInput
           className="flex-1 border border-gray-300 rounded-lg px-3 py-2"

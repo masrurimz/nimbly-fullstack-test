@@ -2,7 +2,6 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { tasksApi } from '../api/tasks';
 import type { Task } from '../api/types';
 
-// ─── Query key factory ───────────────────────────────────
 export const taskKeys = {
   all: ['tasks'] as const,
 };
@@ -25,7 +24,6 @@ export function useToggleTask() {
   });
 }
 
-// ─── Create task mutation ────────────────────────────────
 export function useCreateTask(onSuccess?: () => void) {
   const queryClient = useQueryClient();
 
@@ -38,11 +36,10 @@ export function useCreateTask(onSuccess?: () => void) {
   });
 }
 
-// ─── Derived data ────────────────────────────────────────
 export function useFilteredTasks(
   tasks: Task[] | undefined,
   filter: string,
-  search: string
+  search: string,
 ): Task[] {
   if (!tasks) return [];
 

@@ -2,7 +2,7 @@
 
 A coding challenge for senior fullstack engineer candidates.
 
-**Stack:** Expo SDK 55 + React Native 0.83 + Uniwind (Tailwind v4) + TanStack Query + TanStack Form
+**Stack:** Expo SDK 54 + React Native 0.81 + Uniwind (Tailwind v4) + TanStack Query + TanStack Form
 
 ## Setup
 
@@ -11,9 +11,9 @@ npm install
 npx expo start
 ```
 
-Then open in Expo Go, iOS simulator, or Android emulator.
+Then scan the QR code with **Expo Go** from the Play Store.
 
-> **Note:** If TypeScript shows `className` errors on first open, run `npx expo start` once to let Uniwind generate its type declarations, then restart your editor.
+> **Note:** If TypeScript shows `className` errors, run `npx expo start` once to let Uniwind generate its type declarations, then restart your editor.
 
 ## Structure
 
@@ -23,15 +23,15 @@ src/
 │   ├── types.ts          # Shared types (Task, TaskFilter)
 │   └── tasks.ts          # Mock API layer
 ├── hooks/
-│   └── use-tasks.ts      # TanStack Query hooks (queries + mutations)
+│   └── use-tasks.ts      # TanStack Query hooks
 ├── components/
-│   ├── task-item.tsx      # Single task row component
+│   ├── task-item.tsx      # Single task row
 │   ├── task-form.tsx      # Add task form (modal)
 │   └── filter-bar.tsx     # Status filter chips
 ├── app/
 │   ├── _layout.tsx        # Root layout (QueryClientProvider)
-│   └── index.tsx          # Home screen — assembles everything
-└── global.css             # Tailwind v4 + Uniwind entry
+│   └── index.tsx          # Home screen
+└── global.css             # Tailwind v4 + Uniwind
 ```
 
 ## The Challenge
